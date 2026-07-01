@@ -1,0 +1,24 @@
+{
+    "name": "ControllerCode-Adafruit-Circuit-Playground-Express",
+    "description": "",
+    "dependencies": {
+        "adafruit-circuit-playground-express": "*",
+        "keyboard": "*"
+    },
+    "files": [
+        "main.blocks",
+        "main.ts",
+        "README.md"
+    ],
+    "testFiles": [
+        "test.ts"
+    ],
+    "targetVersions": {
+        "target": "0.15.70",
+        "targetId": "maker"
+    },
+    "supportedTargets": [
+        "maker"
+    ],
+    "preferredEditor": "tsprj"
+}
