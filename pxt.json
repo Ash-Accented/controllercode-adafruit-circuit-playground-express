@@ -3,7 +3,9 @@
     "description": "",
     "dependencies": {
         "adafruit-circuit-playground-express": "*",
-        "keyboard": "*"
+        "keyboard": "*",
+        "gamepad": "*",
+        "mouse": "*"
     },
     "files": [
         "main.blocks",

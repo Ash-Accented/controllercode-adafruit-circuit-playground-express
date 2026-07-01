@@ -1,7 +1,7 @@
 input.setAccelerometerRange(AcceleratorRange.TwoG); //Set the bound on acceleration to be 2G on startup
-const miliG_X_Pos = 800 //Acceleration of x movement (in miligravities) minimum for detection as input, in the positive direction
+const miliG_X_Pos = 700 //Acceleration of x movement (in miligravities) minimum for detection as input, in the positive direction
 const miliG_X_Neg = -1*(miliG_X_Pos); //Acceleration of x movement (in miligravities) minimum for detection as input, in the negative direction
-const miliG_Y_Pos = 800
+const miliG_Y_Pos = 700
 const miliG_Y_Neg = -1*(miliG_Y_Pos);
 const miliG_Z_Pos = 1800 
 
@@ -14,41 +14,47 @@ function clearLights(stripLightA: light.NeoPixelStrip, stripLightB: light.NeoPix
     stripLightA.clear();
     stripLightB.clear();
 }
+function keyboardTap(key: KeyboardFunctionKey){
+    keyboard.functionKey(key, KeyboardKeyEvent.Down)
+    control.timer1.reset()
+    control.timer1.pauseUntil(1000)
+    keyboard.functionKey(key, KeyboardKeyEvent.Up)
+}
 
-function checkAcceleration(x: number, y: number, z: number) {
-    if (x >= miliG_X_Pos && x > y && x > z) {
+function checkAcceleration(x: number, y: number, z: number) { //&& x > y && x > z
+    if (x >= miliG_X_Pos) {
         xLight.setAll(0xffffff); //White
-        clearLights(yLight, zLight);
-        keyboard.type("Left! ");
+        //clearLights(yLight, zLight);
+        keyboardTap(KeyboardFunctionKey.LeftArrow);
         
     }
-    else if (x <= miliG_X_Neg && x < y && x < z) {
+    else if (x <= miliG_X_Neg) {
         xLight.setAll(0x66ff66); //Green
-        clearLights(yLight, zLight);
-        keyboard.type("Right! ");
+        //clearLights(yLight, zLight);
+        keyboardTap(KeyboardFunctionKey.RightArrow);
     }
     else {
         xLight.clear()
     }
 
-    if (y >= miliG_Y_Pos && y > x && y > z) {
+    if (y >= miliG_Y_Pos) { //&& y < x && y < z
         yLight.setAll(0x9966ff); //Electric Purple
-        clearLights(xLight, zLight);
-        keyboard.type("Backward! ");
+        //clearLights(xLight, zLight);
+        keyboardTap(KeyboardFunctionKey.DownArrow);
     }
-    else if (y <= miliG_Y_Neg && y < x && y < z) {
+    else if (y <= miliG_Y_Neg) {
         yLight.setAll(0x99ccff); //Light Blue
-        clearLights(xLight, zLight);
-        keyboard.type("Forward! ")
+        //clearLights(xLight, zLight);
+        keyboardTap(KeyboardFunctionKey.UpArrow);
     }
     else {
         yLight.clear();
     }
 
-    if (z >= miliG_Z_Pos && z > x && z > y) {
+    if (z >= miliG_Z_Pos) {//&& z > x && z > y
         zLight.setAll(0x0000ff); //Blue
-        clearLights(xLight, yLight);
-        keyboard.type("Shield! ")
+        //clearLights(xLight, yLight);
+        //keyboardTap(KeyboardFunctionKey.);
     }
     else {
         zLight.clear();
